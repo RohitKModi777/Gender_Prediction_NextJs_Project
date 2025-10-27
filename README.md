@@ -2,7 +2,8 @@
 
 A modern web application built with Next.js that predicts the gender of a person based on their name using the Genderize.io API.
 
-![Gender Prediction App]("https://github.com/user-attachments/assets/eecd42cf-8225-4445-8916-f1a85d959bda")
+<img width="1854" height="912" alt="image" src="https://github.com/user-attachments/assets/cb4215ac-94d9-4020-b8d0-c84e4b299006" />
+
 
 ## Features
 
