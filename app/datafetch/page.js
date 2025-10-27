@@ -1,13 +1,15 @@
 "use client";
 export const dynamic = "force-dynamic";
 
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { User, TrendingUp, Star, ArrowLeft } from "lucide-react";
+import { User, ArrowLeft } from "lucide-react";
 
-export default function DatafetchServer() {
+function Content() {
   const [userinfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const userName = searchParams.get("name");
@@ -41,12 +43,6 @@ export default function DatafetchServer() {
   }
 
   const confidencePercentage = (userinfo?.probability || 0) * 100;
-  let confidenceColor =
-    confidencePercentage >= 80
-      ? "bg-green-400"
-      : confidencePercentage >= 50
-      ? "bg-yellow-400"
-      : "bg-red-400";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-black to-pink-500 px-4 relative">
@@ -71,7 +67,6 @@ export default function DatafetchServer() {
         </h2>
 
         <div className="flex flex-col gap-3 w-full">
-
           <div className="flex justify-between items-center bg-white/15 rounded-xl px-4 py-3">
             <span className="text-sm font-medium ">Gender</span>
             <span className="text-sm font-semibold uppercase">{userinfo?.gender}</span>
@@ -91,9 +86,16 @@ export default function DatafetchServer() {
             <span className="text-sm font-medium">Count</span>
             <span className="text-sm font-semibold">{userinfo?.count}</span>
           </div>
-
         </div>
       </div>
     </div>
+  );
+}
+
+export default function DatafetchServer() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Content />
+    </Suspense>
   );
 }
